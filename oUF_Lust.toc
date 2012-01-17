@@ -1,0 +1,14 @@
+## Interface: 40300
+## Author: Othgar/Lust
+## Title: oUF_Lust
+## Version: 1.0b
+## Notes: oUF of lusti-tribali-ness-esque
+## RequiredDeps: oUF
+## OptionalDeps: oUF_CombatFeedback, oUF_boring_totembar, oUF_WeaponEnchant, oUF_BarFader
+## X-Category: UnitFrame
+
+cfg.lua
+tags.lua
+Elements\smooth.lua
+lib.lua
+core.lua
