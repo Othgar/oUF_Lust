@@ -22,8 +22,6 @@
   cfg.ShowParty = true -- show party frames
   cfg.party_leader_icon = true -- Show Leader Icon
 
---  cfg.ShowRaid = false -- show raid frames
---  cfg.RaidShowSolo = true -- show raid frames even when solo
 
   -- Positioning 
   cfg.PlayerX = -275 -- Player frame's x-offset position from the relative point of the screen

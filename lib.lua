@@ -157,8 +157,8 @@ lib.gen_hpbar = function(f, unit, min, max)
 		s:SetStatusBarTexture(cfg.statusbar_texture)
 		s:SetSize(80)
 	elseif f.mystyle == "pet" then
-		s:SetStatusBarTexture(cfg.statusbar_texture)
-		s:SetSize(128,16)
+		s:SetStatusBarTexture(cfg.ostatusbar_texture)
+		s:SetSize(128,32)
 	elseif f.mystyle == "tot" or f.mystyle == "focus" or f.mystyle == "focustarget" then
 		s:SetStatusBarTexture(cfg.ostatusbar_texture)
 		s:SetSize(128, 32)
@@ -178,7 +178,7 @@ lib.gen_hpbar = function(f, unit, min, max)
 	b:SetTexture(cfg.tstatusbarbg_texture)	
 	b:SetAllPoints(s)
 	b:SetVertexColor(0.8, 0.05, 0.05, 0.75)
-	elseif f.mystyle == "tot" or f.mystyle == "party" or f.mystyle == "focus" or f.mystyle == "focustarget" then
+	elseif f.mystyle == "tot" or f.mystyle == "party" or f.mystyle == "focus" or f.mystyle == "pet" or f.mystyle == "focustarget" then
 	b:SetTexture(cfg.ostatusbarbg_texture)
 	b:SetAllPoints(s)
 	b:SetVertexColor(0.8, 0.05, 0.05, 0.75)
@@ -308,7 +308,7 @@ end
 	s:SetHeight(retVal(f,128,30,30))
 	s:SetPoint("BOTTOM",f,"BOTTOM",0,0)
 	s:SetFrameLevel(1)
-	elseif f.mystyle == "focus" or f.mystyle == "focustarget" then
+	elseif f.mystyle == "focus" or f.mystyle == "focustarget" or f.mystyle == "pet" then
 	s:SetStatusBarTexture(cfg.opowerbar_texture)
 	s:SetWidth(f:GetWidth())
 	s:SetHeight(retVal(f,128,30,30))
@@ -330,7 +330,7 @@ end
 	b:SetPoint("TOPRIGHT", 0, -1)
     f.Power = s
     f.Power.bg = b
-	elseif f.mystyle == "tot" or f.mystyle == "party" then
+	elseif f.mystyle == "tot" or f.mystyle == "party" or f.mystyle == "pet" then
 	b:SetTexture(cfg.opowerbarbg_texture)
     b:SetAlpha(0.9)
     b:SetPoint("BOTTOMLEFT", -1, 0)
@@ -445,7 +445,7 @@ end
     hl:SetBlendMode("ADD")
     hl:Hide()
     f.Highlight = hl
-	elseif f.mystyle == "tot" or f.mystyle == "party" or f.mystyle == "focus" or f.mystyle == "focustarget" then
+	elseif f.mystyle == "tot" or f.mystyle == "party" or f.mystyle == "focus" or f.mystyle == "pet" or f.mystyle == "focustarget" then
 	hl:SetTexture(cfg.ostatusbar_texture)
 	hl:SetVertexColor(.5,.5,.5,.3)
 	hl:SetBlendMode("ADD")
@@ -490,79 +490,6 @@ end
 		self.TargetBorder:SetBlendMode("ADD")
 		self.TargetBorder:Hide()
 	end
-
-	--[[ Raid Frames Target Highlight Border
-	function lib.ChangedTarget(self, event, unit)
-	
-		if UnitIsUnit('target', self.unit) then
-			self.TargetBorder:Show()
-		else
-			self.TargetBorder:Hide()
-		end
-	end
-	
-	-- Create Raid Threat Status Border
-	function lib.CreateThreatBorder(self)
-		
-		local glowBorder = {edgeFile = cfg.backdrop_edge_texture, edgeSize = 5}
-		self.Thtborder = CreateFrame("Frame", nil, self)
-		self.Thtborder:SetPoint("TOPLEFT", self, "TOPLEFT", -8, 9)
-		self.Thtborder:SetPoint("BOTTOMRIGHT", self, "BOTTOMRIGHT", 9, -8)
-		self.Thtborder:SetBackdrop(glowBorder)
-		self.Thtborder:SetFrameLevel(1)
-		self.Thtborder:Hide()	
-	end
-  
-  	-- Raid Frames Threat Highlight
-	function lib.UpdateThreat(self, event, unit)
-	
-		if (self.unit ~= unit) then return end
-		
-		local status = UnitThreatSituation(unit)
-		unit = unit or self.unit
-		
-		if status and status > 1 then
-			local r, g, b = GetThreatStatusColor(status)
-			self.Thtborder:Show()
-			self.Thtborder:SetBackdropBorderColor(r, g, b, 1)
-		else
-			self.Thtborder:SetBackdropBorderColor(r, g, b, 0)
-			self.Thtborder:Hide()
-		end
-	end
-
-  
--- raid post update
-lib.PostUpdateRaidFrame = function(Health, unit, min, max)
-
-	local disconnnected = not UnitIsConnected(unit)
-	local dead = UnitIsDead(unit)
-	local ghost = UnitIsGhost(unit)
-
-	if disconnnected or dead or ghost then
-		Health:SetValue(max)
-		
-		if(disconnnected) then
-			Health:SetStatusBarColor(0,0,0,0.6)
-		elseif(ghost) then
-			Health:SetStatusBarColor(1,1,1,0.6)
-		elseif(dead) then
-			Health:SetStatusBarColor(1,0,0,0.7)
-		end
-	else
-		Health:SetValue(min)
-		if(unit == 'vehicle') then
-			Health:SetStatusBarColor(22/255, 106/255, 44/255)
-		end
-	end
-	
-	if not UnitInRange(unit) then
-		Health.bg2:SetVertexColor(.6, 0.3, 0.3,1)
-	else
-		Health.bg2:SetVertexColor(1, 0.1, 0.1,1)
-	end
-end]]--
-
 -- Eclipse Bar function
 local eclipseBarBuff = function(self, unit)
 	if self.hasSolarEclipse then

@@ -90,8 +90,8 @@ oUF.Tags['karma:color'] = function(u, r)
 		return "|cffA0A0A0"
 	elseif (UnitIsTapped(u) and not UnitIsTappedByPlayer(u)) then
 		return hex(oUF.colors.tapped)
-	elseif (u == "pet") and GetPetHappiness() then
-		return hex(oUF.colors.happiness[GetPetHappiness()])
+	--elseif (u == "pet") and GetPetHappiness() then
+		--return hex(oUF.colors.happiness[GetPetHappiness()])
 	elseif (UnitIsPlayer(u)) then
 		return hex(oUF.colors.class[class])
 	elseif reaction then

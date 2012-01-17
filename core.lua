@@ -266,46 +266,8 @@ local UnitSpecific = {
 		self.Power.colorReaction = true
 		self.Power.colorHealth = true
 		self.Power.bg.multiplier = 0.5
-
-		-- Hunter Pet Hapiness
-		if PlayerClass == "HUNTER" then
-			self.Power.colorReaction = false
-			self.Power.colorClass = false
-			self.Power.colorHappiness = true
-		end
-		
-	end,
-
-  raid = function(self, ...)
-				
-		self.mystyle = "raid"
-		
-		self.Range = {
-			insideAlpha = 1,
-			outsideAlpha = .3,
-		}
-
-		-- Generate Bars
-		lib.gen_raidhpbar(self)
-		lib.gen_raidppbar(self)
-		lib.gen_hpstrings(self)
-		lib.gen_highlight(self)
-		lib.gen_RaidMark(self)
-		lib.ReadyCheck(self)
-
-		--style specific stuff
-		self.Health.frequentUpdates = true
-		self.Health.colorSmooth = true
-		--self.Health.bg2.multiplier = 0.3
-		self.Power.colorClass = true
-		self.Power.bg.multiplier = 0.5
-		lib.gen_InfoIcons(self)
-		lib.CreateTargetBorder(self)
-		lib.HealPred(self)
-
-		self.Health.PostUpdate = lib.PostUpdateRaidFrame
-		self:RegisterEvent('PLAYER_TARGET_CHANGED', lib.ChangedTarget)
-		self:RegisterEvent('RAID_ROSTER_UPDATE', lib.ChangedTarget)
+		self.BarFade = true
+		self.BarFadeMinAlpha = -1
 	end,
 
 	party = function(self, ...)
@@ -454,7 +416,7 @@ oUF:Factory(function(self)
 	self:Spawn('player'):SetPoint("CENTER", UIParent, cfg.PlayerRelativePoint, cfg.PlayerX, cfg.PlayerY)
 	self:Spawn('target'):SetPoint("CENTER", UIParent, cfg.TargetRelativePoint, cfg.TargetX, cfg.TargetY)
 	if cfg.showtot then self:Spawn('targettarget'):SetPoint("CENTER", UIParent, cfg.TotRelativePoint, cfg.TotX, cfg.TotY) end
-	if cfg.showpet then self:Spawn('pet'):SetPoint("TOPRIGHT",oUF_lustPlayer,"TOPLEFT", -24, 0) end
+	if cfg.showpet then self:Spawn('pet'):SetPoint("TOPRIGHT",oUF_lustPlayer,"TOPLEFT", -40, 50) end
 	if cfg.showfocus then self:Spawn('focus'):SetPoint("BOTTOMRIGHT", oUF_lustPlayer, cfg.FocusRelativePoint, cfg.FocusX, cfg.FocusY) end
 	if cfg.showfocustarget then self:Spawn('focustarget'):SetPoint("BOTTOMLEFT",oUF_lustFocus,"TOPLEFT", 0, 8) end
 	
